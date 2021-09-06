@@ -3,9 +3,11 @@ package com.employee.spring.boot.crud.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,12 +39,22 @@ public class EmployeeRestController {
 		}
 		return empl;
 	}
-	
+
 	@PostMapping("/employees")
 	public Employee addEmployee(@RequestBody Employee empl) {
 		empl.setId(0);
 		emplService.save(empl);
 		return empl;
+	}
+
+	@PutMapping("/employees")
+	public void updateEmployee(@RequestBody Employee empl) {
+		emplService.save(empl);
+	}
+
+	@DeleteMapping("/employees/{employeeId}")
+	public void deleteEmployee(@PathVariable int employeeId) {
+		emplService.deleteById(employeeId);
 	}
 
 }
