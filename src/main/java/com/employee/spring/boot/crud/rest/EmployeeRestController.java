@@ -3,6 +3,7 @@ package com.employee.spring.boot.crud.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +23,7 @@ public class EmployeeRestController {
 	private EmployeeService emplService;
 
 	@Autowired
-	public EmployeeRestController(EmployeeService emplService) {
+	public EmployeeRestController(@Qualifier("springDataService")EmployeeService emplService) {
 		this.emplService = emplService;
 	}
 
@@ -54,8 +55,8 @@ public class EmployeeRestController {
 
 	@DeleteMapping("/employees/{employeeId}")
 	public void deleteEmployee(@PathVariable int employeeId) {
-		Employee empl=emplService.findById(employeeId);
-		if(empl==null) {
+		Employee empl = emplService.findById(employeeId);
+		if (empl == null) {
 			throw new RuntimeException("Employee with id " + employeeId + " isn't present");
 		}
 		emplService.deleteById(employeeId);
